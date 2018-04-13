@@ -53,7 +53,7 @@ export class GameIonicPage {
 
         // deck of all cards in game
         deck = document.getElementById("card-deck");
-
+        
         // declaring move variable
         moves = 0;
         counter = document.querySelector(".moves");
@@ -255,13 +255,16 @@ cardOpen(event) {
 // @description game timer
 
  startTimer(){
-    interval = setInterval(function(){
+    interval = setInterval(()=>{
       var timer = document.querySelector(".timer");
         timer.innerHTML = minute+"mins "+second+"secs";
         second++;
-        if(second == 60){
-            minute++;
-            second=0;
+        if(second == 10){
+            // minute++;
+            // second=0;
+          
+            this.congratulations();
+        
         }
         if(minute == 60){
             hour++;
@@ -273,7 +276,11 @@ cardOpen(event) {
 
 // @description congratulations when all cards match, show modal and moves, time and rating
  congratulations(){
-    if (matchedCard.length == 16){
+    if (matchedCard.length == 12 || second == 10){
+        let context = this;
+        document.getElementById("play-again").addEventListener("click",()=>{
+            context.routeBack();
+        });
         clearInterval(interval);
         var timer = document.querySelector(".timer");
         finalTime = timer.innerHTML;
@@ -311,7 +318,10 @@ cardOpen(event) {
     // this.startGame();
 }
 
-
+routeBack(){
+    modal.classList.remove("show");
+    this.nav.pop();
+}
 // loop to add event listeners to each card
 addListenersToCard(){
   for ( var i = 0; i < cards.length; i++){
@@ -364,6 +374,7 @@ addListenersToCard(){
 
     //closeicon on modal
     this.closeModal();
+   
 };
   });
 

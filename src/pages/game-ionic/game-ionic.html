@@ -12,6 +12,9 @@
         <header>
             <h1>Memory Game</h1>
         </header>
+        <div class="content-2" style="overflow: hidden">
+            <h1>You have 10 seconds to wind the game,Best luck!!!!</h1>
+        </div>
 
         <section class="score-panel">
             <ul class="stars">
@@ -48,7 +51,7 @@
         </section>
 
         <ul class="deck" id="card-deck">
-            <li class="card" type="diamond">
+            <!-- <li class="card" type="diamond">
                 <div>
                     <img src="assets/imgs/1.jpg">
                 </div>
@@ -61,13 +64,13 @@
             <li class="card match" type="anchor">
                 <i class="fa fa-anchor"></i>
             </li>
-            <li class="card" type="bolt">
+            <!-- <li class="card" type="bolt">
                 <i class="fa fa-bolt"></i>
-            </li>
-            <li class="card" type="cube">
+            </li> -->
+            <!-- <li class="card" type="cube">
                 <i class="fa fa-cube"></i>
-            </li>
-            <li class="card match" type="anchor">
+            </li> -->
+            <!-- <li class="card match" type="anchor">
                 <i class="fa fa-anchor"></i>
             </li>
             <li class="card" type="leaf">
@@ -107,24 +110,93 @@
             </li>
             <li class="card" type="cube">
                 <i class="fa fa-cube"></i>
+            </li> -->
+            
+            <li class="card" type="arrows">
+                <div>
+                    <img src="assets/imgs/1.gif">
+                </div>
             </li>
+            <li class="card match" type="anchor">
+                <div>
+                    <img src="assets/imgs/2.jpg">
+                </div>
+            </li>
+            <li class="card" type="bolt">
+                <div>
+                    <img src="assets/imgs/3.jpg">
+                </div>
+            </li>
+            <li class="card match" type="anchor">
+                <div>
+                    <img src="assets/imgs/2.jpg">
+                </div>
+            </li>
+            <li class="card" type="leaf">
+                <div>
+                    <img src="assets/imgs/4.jpg">
+                </div>
+            </li>
+            <li class="card" type="bicycle">
+                <div>
+                    <img src="assets/imgs/5.jpeg">
+                </div>
+            </li>
+            <li class="card" type="arrows">
+                <div>
+                    <img src="assets/imgs/1.gif">
+                </div>
+            </li>
+            <li class="card" type="bomb">
+                <div>
+                    <img src="assets/imgs/6.jpg">
+                </div>
+            </li>
+            <li class="card" type="leaf">
+                <div>
+                    <img src="assets/imgs/4.jpg">
+                </div>
+            </li>
+            <li class="card" type="bomb">
+                <div>
+                    <img src="assets/imgs/6.jpg">
+                </div>
+            </li>
+            <li class="card" type="bolt">
+                <div>
+                    <img src="assets/imgs/3.jpg">
+                </div>
+            </li>
+            <li class="card" type="bicycle">
+                <div>
+                    <img src="assets/imgs/5.jpeg">
+                </div>
+            </li>
+
         </ul>
 
         <div id="popup1" class="overlay">
             <div class="popup">
-                <h2>Congratulations ðŸŽ‰</h2>
-                <a class="close" href=#>Ã—</a>
+                <h2>Congratulations</h2>
+                <a class="close" href=#></a>
                 <div class="content-1">
-                    Congratulations you're a winner ðŸŽ‰ðŸŽ‰
+                    Congratulations you're a winner
                 </div>
                 <div class="content-2">
                     <p>You made <span id=finalMove> </span> moves </p>
                     <p>in <span id=totalTime> </span> </p>
                     <p>Rating: <span id=starRating></span></p>
                 </div>
-                <button id="play-again" onclick="playAgain()">
-                   <a> Play again ðŸ˜„</a>
+
+                <div class="content-2">
+                    <p>You won walmart flyers and special gift !!!!!!!! HURAAAY </p>
+                </div>
+
+                <button id="play-again">
+                   <a> OK</a>
                 </button>
+
+                
             </div>
         </div>
 

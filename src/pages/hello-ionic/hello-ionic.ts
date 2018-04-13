@@ -6,6 +6,7 @@ import {GameIonicPage} from  '../../pages/game-ionic/game-ionic';
 import { NgModule, ErrorHandler } from '@angular/core';
 
 declare let google: any;
+let navy:any ;
 @Component({
   selector: 'page-hello-ionic',
   templateUrl: 'hello-ionic.html'
@@ -37,6 +38,7 @@ export class HelloIonicPage {
   constructor(public platform: Platform, public alertCtrl: AlertController, public zone: NgZone,public nav:NavController) {
     this.map = null;
     this.platform.ready().then(() => this.loadMaps());
+    navy = this.nav;
 
   }
   loadMaps() {
@@ -88,7 +90,9 @@ export class HelloIonicPage {
 
       var marker = new google.maps.Marker({
         position: pos,
-        map: this.map
+        map: this.map,
+        icon:'../assets/imgs/reddev.jpg',
+        
       });
       var goldStar = {
         path: 'M 125,5 155,90 245,90 175,145 200,230 125,180 50,230 75,145 5,90 95,90 z',
@@ -140,7 +144,8 @@ export class HelloIonicPage {
       features.forEach((feature) => {
         var marker = new google.maps.Marker({
           position: feature.position,
-          icon: goldStar,
+          icon:'../assets/imgs/walmart.jpg',
+          
           map: this.map
         });
         this.infoWindow = new google.maps.InfoWindow;
@@ -191,24 +196,30 @@ export class HelloIonicPage {
     });
     alert.present();
   }
+  ionViewDidEnter() {
+   debugger;
+   if(navy.getViews().length === 2){
+   var position = new google.maps.LatLng(43.85, -87.90);
+   var marker = new google.maps.Marker({
+    position:position,
+    icon:'../assets/imgs/Gift-icon.png',
+    map: this.map
+  });
+ this.infoWindow = new google.maps.InfoWindow;
+
+    this.infoWindow.setPosition(position);
+    this.infoWindow.setContent('<span>Deepika</sapn>');
+    this.infoWindow.open(this.map, marker);
+    marker.addListener('click', () => {
+      this.map.setZoom(8);
+      this.map.setCenter(marker.getPosition());
+      alert('Voucher Details');
+    
+    });
+  }
+}
   openWinDialog() {
     this.nav.push(GameIonicPage);
-    let alert = this.alertCtrl.create({
-      title: 'You Win',
-      message: 'Wow you have earn 50 points, walkin to walmart store and reddeem the voucher',
-      buttons: [
-        {
-          text: 'Ok',
-          role: 'Ok',
-          handler: () => {
-            console.log('Ok clicked');
-
-          }
-        }
-
-      ]
-    });
-    alert.present();
   }
   displayRoute(origin, destination, service, display) {
     service.route({
