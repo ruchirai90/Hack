@@ -2,11 +2,15 @@
 import { Component, NgZone, ViewChild, ElementRef } from '@angular/core';
 import { Platform, AlertController } from 'ionic-angular';
 import { NavController } from 'ionic-angular';
-import {GameIonicPage} from  '../../pages/game-ionic/game-ionic';
+import { GameIonicPage } from '../../pages/game-ionic/game-ionic';
 import { NgModule, ErrorHandler } from '@angular/core';
 
+// let allmarkers = [];
 declare let google: any;
-let navy:any ;
+let navy: any;
+let modal: any;
+let shop:any;
+
 @Component({
   selector: 'page-hello-ionic',
   templateUrl: 'hello-ionic.html'
@@ -14,11 +18,11 @@ let navy:any ;
 
 @NgModule({
   declarations: [
- 
-  
+
+
   ],
   imports: [
-    
+
   ],
   bootstrap: [],
   entryComponents: [
@@ -26,20 +30,48 @@ let navy:any ;
     GameIonicPage
   ],
   providers: [
-   
+
   ]
 })
 
 export class HelloIonicPage {
   map: any;
-  infoWindow: any
+  m: any;
+  infoWindow: any;
+  ruchiArray: any = [];
+  features: any;
+  public buttonClicked: boolean = false;
   @ViewChild('map') mapElement: ElementRef;
-  addressElement: HTMLInputElement = null;
-  constructor(public platform: Platform, public alertCtrl: AlertController, public zone: NgZone,public nav:NavController) {
+  @ViewChild('directionsPanel') directionsPanel: ElementRef;
+  constructor(public platform: Platform, public alertCtrl: AlertController, public zone: NgZone, public nav: NavController) {
     this.map = null;
+    this.m = null;
     this.platform.ready().then(() => this.loadMaps());
-    navy = this.nav;
+    this.ruchiArray = [];
+    this.features = [
+      {
+        position: new google.maps.LatLng(43.85, -87.90),
+        type: 'info'
+      }, {
+        position: new google.maps.LatLng(43.85, -82.90),
+        type: 'info'
+      }, {
+        position: new google.maps.LatLng(44.10, -88.65),
+        type: 'info'
+      },
 
+      {
+        position: new google.maps.LatLng(44.85, -88.65),
+        type: 'info'
+      },
+
+    ];
+    navy = this.nav;
+    // declare modal
+    modal = document.getElementById("ruchipopup1");
+    shop = document.getElementById("shoppopup1");
+    
+    this.m = modal;
   }
   loadMaps() {
     if (!!google) {
@@ -67,6 +99,7 @@ export class HelloIonicPage {
   initializeMap() {
     this.zone.run(() => {
       var mapElement = this.mapElement.nativeElement;
+
       this.map = new google.maps.Map(mapElement, {
         zoom: 7,
         center: { lat: 41.85, lng: -87.65 },
@@ -91,9 +124,10 @@ export class HelloIonicPage {
       var marker = new google.maps.Marker({
         position: pos,
         map: this.map,
-        icon:'../assets/imgs/reddev.jpg',
-        
+        icon: '../assets/imgs/100.png',
+
       });
+      marker.pin
       var goldStar = {
         path: 'M 125,5 155,90 245,90 175,145 200,230 125,180 50,230 75,145 5,90 95,90 z',
         fillColor: 'yellow',
@@ -117,61 +151,31 @@ export class HelloIonicPage {
         }
       };
 
-      var features = [
-        {
-          position: new google.maps.LatLng(43.85, -87.90),
-          type: 'info'
-        }, {
-          position: new google.maps.LatLng(43.85, -82.90),
-          type: 'info'
-        }, {
-          position: new google.maps.LatLng(44.10, -88.65),
-          type: 'info'
-        },
 
-        {
-          position: new google.maps.LatLng(44.85, -88.65),
-          type: 'info'
-        },
 
-        {
-          position: new google.maps.LatLng(45.85, -88.65),
-          type: 'info'
-        },
-      ];
 
-      // Create markers.
-      features.forEach((feature) => {
+      // Create markers. walmart icon
+      this.features.forEach((feature) => {
         var marker = new google.maps.Marker({
           position: feature.position,
-          icon:'../assets/imgs/walmart.jpg',
-          
+          icon: '../assets/imgs/WalmartPlay50.gif',
+          animation: google.maps.Animation.DROP,
           map: this.map
-        });
-        this.infoWindow = new google.maps.InfoWindow;
 
-        this.infoWindow.setPosition(feature.position);
-        this.infoWindow.setContent('<span>Ruchi</sapn>');
-        this.infoWindow.open(this.map, marker);
+        });
+        this.ruchiArray.push(marker);
+
+        // this.infoWindow = new google.maps.InfoWindow;
+
+        // this.infoWindow.setPosition(feature.position);
+        // this.infoWindow.setContent('<div class="loki"><img src = "../assets/imgs/win_anim.gif"></div>');
+        // this.infoWindow.open(this.map, marker);
         marker.addListener('click', () => {
           this.map.setZoom(8);
           this.map.setCenter(marker.getPosition());
           this.openGameDialog();
         });
-      });
-      var directionsService = new google.maps.DirectionsService;
-      var directionsDisplay = new google.maps.DirectionsRenderer({
-        draggable: true,
-        map: this.map,
-        panel: document.getElementById('right-panel')
-      });
-
-      directionsDisplay.addListener('directions_changed', function () {
-        this.computeTotalDistance(directionsDisplay.getDirections());
-      });
-
-      this.displayRoute('Lower West Side, Chicago, IL, USA', 'Herman, WI,  USA', directionsService,
-        directionsDisplay);
+      }, this);
 
 
     })
@@ -196,28 +200,62 @@ export class HelloIonicPage {
     });
     alert.present();
   }
-  ionViewDidEnter() {
-   debugger;
-   if(navy.getViews().length === 2){
-   var position = new google.maps.LatLng(43.85, -87.90);
-   var marker = new google.maps.Marker({
-    position:position,
-    icon:'../assets/imgs/Gift-icon.png',
-    map: this.map
-  });
- this.infoWindow = new google.maps.InfoWindow;
+  startNavigation() {
 
-    this.infoWindow.setPosition(position);
-    this.infoWindow.setContent('<span>Deepika</sapn>');
-    this.infoWindow.open(this.map, marker);
-    marker.addListener('click', () => {
-      this.map.setZoom(8);
-      this.map.setCenter(marker.getPosition());
-      alert('Voucher Details');
-    
+    document.getElementById("ruchipopup1").classList.remove("show");
+    this.buttonClicked = true;
+    let directionsService = new google.maps.DirectionsService;
+    let directionsDisplay = new google.maps.DirectionsRenderer;
+
+    directionsDisplay.setMap(this.map);
+    // directionsDisplay.setPanel(this.directionsPanel);
+
+    directionsService.route({
+      origin: 'Lower West Side, Chicago, IL, USA',
+      destination: 'Herman, WI,  USA',
+      travelMode: google.maps.TravelMode['DRIVING']
+    }, (res, status) => {
+
+      if (status == google.maps.DirectionsStatus.OK) {
+        directionsDisplay.setDirections(res);
+      } else {
+        console.warn(status);
+      }
+
     });
+    setTimeout(function(){
+      document.getElementById("shoppopup1").classList.add("show");
+    },5000)
+
   }
-}
+
+
+  ionViewDidEnter() {
+    debugger;
+    if (navy.getViews().length === 2) {
+      for (var i in this.ruchiArray) {
+        if (this.ruchiArray[i].getPosition().lat() === 43.85 && this.ruchiArray[i].getPosition().lng() === -87.89999999999998) {
+          this.ruchiArray[i].setMap(null);
+        }
+      }
+      var position = new google.maps.LatLng(43.85, -87.90);
+
+      var mymarker = new google.maps.Marker({
+        position: position,
+        icon: '../assets/imgs/car70.png',
+        map: this.map
+      });
+
+      mymarker.addListener('click', () => {
+        this.map.setZoom(8);
+        this.map.setCenter(mymarker.getPosition());
+        document.getElementById("ruchipopup1").classList.add("show");
+        document.getElementById("ruchiplay-again").addEventListener("click", () => {
+          this.startNavigation();
+        });
+      },this);
+    }
+  }
   openWinDialog() {
     this.nav.push(GameIonicPage);
   }

@@ -6,11 +6,56 @@
     <ion-title>WAL-PLAY- Play,Win,Shop</ion-title>
   </ion-navbar>
 </ion-header>
+
 <ion-content>
+
+    <!-- <ion-card *ngIf="buttonClicked"> 
+        <ion-card-content>
+            <div #directionsPanel  id=""z></div>
+        </ion-card-content>
+    </ion-card> -->
+   
 <div #map id="map"></div>
-<div id="right-panel">
+<!-- <div id="right-panel">
   <p>Total Distance: <span id="total"></span></p>
+</div> -->
+
+<div id="ruchipopup1" class="overlay">
+  <div class="ruchipopup">
+      <h2>Special gift for you</h2>
+      <a class="ruchiclose" href=#></a>
+      <div class="ruchicontent-1">
+          Congratulations you won Walmart flyers and 50 points (5 points = 1 dollar).
+      </div>
+     
+      <div class="ruchicontent-2">
+          <p>Walk in to the nearest store and redeem the points on shopping above 50$</p>
+      </div>
+
+      <button id="ruchiplay-again">
+         <a> Start Navigation to Nearest Store</a>
+      </button>
+
+      
+  </div>
 </div>
 
-
+<div id="shoppopup1" class="shopoverlay">
+    <div class="shoppopup">
+        <h2>You are on your to our store- Try shopping with us</h2>
+        <a class="shopclose" href=#></a>
+        <div class="shopcontent-1">
+            Grocery Shopping that works with your schedule.
+        </div>
+       
+        <div class="shopcontent-2">
+            <p>Shop online and pick up items in 30 minutes</p>
+        </div>
+  
+        <button id="shopplay-again">
+           <a> Conitnue to order</a>
+        </button>
+     
+    </div>>
+</div>
 </ion-content>
