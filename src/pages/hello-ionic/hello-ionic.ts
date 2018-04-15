@@ -50,18 +50,18 @@ export class HelloIonicPage {
     this.ruchiArray = [];
     this.features = [
       {
-        position: new google.maps.LatLng(43.85, -87.90),
+        position: new google.maps.LatLng(46.95, -70.90),
         type: 'info'
       }, {
-        position: new google.maps.LatLng(43.85, -82.90),
+        position: new google.maps.LatLng(46.85, -73.91),
         type: 'info'
       }, {
-        position: new google.maps.LatLng(44.10, -88.65),
+        position: new google.maps.LatLng(47.90, -71.91),
         type: 'info'
       },
 
       {
-        position: new google.maps.LatLng(44.85, -88.65),
+        position: new google.maps.LatLng(47.85, -70.91),
         type: 'info'
       },
 
@@ -102,7 +102,7 @@ export class HelloIonicPage {
 
       this.map = new google.maps.Map(mapElement, {
         zoom: 7,
-        center: { lat: 41.85, lng: -87.65 },
+        center: { lat: 44.85, lng: -70.65 },
         disableDoubleClickZoom: false,
         disableDefaultUI: true,
         zoomControl: true,
@@ -114,8 +114,8 @@ export class HelloIonicPage {
       var pos = {
         // lat: position.coords.latitude,
         // lng: position.coords.longitude
-        lat: 41.85,
-        lng: -87.65
+        lat: 44.85,
+        lng: -70.65
 
       };
 
@@ -205,14 +205,16 @@ export class HelloIonicPage {
     document.getElementById("ruchipopup1").classList.remove("show");
     this.buttonClicked = true;
     let directionsService = new google.maps.DirectionsService;
-    let directionsDisplay = new google.maps.DirectionsRenderer;
+    var directionsDisplay = new google.maps.DirectionsRenderer({
+      draggable: true,
+      map: this.map,
 
-    directionsDisplay.setMap(this.map);
+    });
     // directionsDisplay.setPanel(this.directionsPanel);
 
     directionsService.route({
-      origin: 'Lower West Side, Chicago, IL, USA',
-      destination: 'Herman, WI,  USA',
+      origin: 'West Central Franklin, ME, USA',
+      destination: 'Saint-Jean-de, QC G0A 3W0, Canada',
       travelMode: google.maps.TravelMode['DRIVING']
     }, (res, status) => {
 
@@ -225,6 +227,7 @@ export class HelloIonicPage {
     });
     setTimeout(function(){
       document.getElementById("shoppopup1").classList.add("show");
+      
     },5000)
 
   }
@@ -234,11 +237,11 @@ export class HelloIonicPage {
     debugger;
     if (navy.getViews().length === 2) {
       for (var i in this.ruchiArray) {
-        if (this.ruchiArray[i].getPosition().lat() === 43.85 && this.ruchiArray[i].getPosition().lng() === -87.89999999999998) {
+        if (this.ruchiArray[i].getPosition().lat() === 46.95 && this.ruchiArray[i].getPosition().lng() ===  -70.90) {
           this.ruchiArray[i].setMap(null);
         }
       }
-      var position = new google.maps.LatLng(43.85, -87.90);
+      var position = new google.maps.LatLng(46.95, -70.90);
 
       var mymarker = new google.maps.Marker({
         position: position,
